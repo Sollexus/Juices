@@ -1,0 +1,21 @@
+{
+    "environmentSettings": {
+        "webSite": {
+            "name": "JuicesMvc",
+            "location": "North Europe"
+        },
+        "databases": [
+            {
+                "connectionStringName": "DefaultConnection",
+                "databaseName": "JuicesMvc_db",
+                "serverName": "n4v2utr8l6",
+                "user": "sollex",
+                "password": "",
+                "edition": "",
+                "size": "",
+                "collation": "",
+                "location": "North Europe"
+            }
+        ]
+    }
+}

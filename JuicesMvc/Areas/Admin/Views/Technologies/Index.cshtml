@@ -1,0 +1,91 @@
+﻿@using JuicesMvc.Models
+@model IEnumerable<Technology>
+
+@{
+	ViewBag.Title = "Технологии";
+}
+
+<h2>Технологии</h2>
+
+@*TODO Find out how DisplayFor... works how it converts IEnumerable*@
+<table class="table">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model => model.Name)</th>
+			<th>@Html.DisplayNameFor(model => model.Rating)</th>
+			<th>@Html.DisplayNameFor(model => model.Description)</th>
+			<th>Управление</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- ko foreach: entities -->
+		<!-- ko template: {name: 'tech' + template() } -->
+		<!-- /ko-->
+		<!-- /ko -->
+		<tr>
+			<td colspan="4">
+				<button class="btn btn-default" data-bind="click: add">
+					<span class="glyphicon glyphicon-plus"></span> Добавить
+				</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+@section scripts {
+	<script id="techView" type="text/html">
+		<tr>
+			<td data-bind="text: Name"></td>
+			<td data-bind="text: Rating"></td>
+			<td data-bind="text: Description"></td>
+			<td>
+				<button class="btn btn-default" data-bind="click: edit ">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</button>
+				<button class="btn btn-default" data-bind="click: $parent.delete">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</td>
+		</tr>
+	</script>
+
+	<script id="techEdit" type="text/html">
+		<tr>
+			<td>
+				<input type="text" data-bind="value: Name, aspnetIndexedName: 'Name'" class="form-control" />
+			</td>
+			<td>
+				<input type="text" data-bind="value: Rating, aspnetIndexedName: 'Rating'" class="form-control" />
+			</td>
+			<td>
+				<input type="text" data-bind="value: Description, aspnetIndexedName: 'Description'" class="form-control" />
+			</td>
+			<td>
+				<button class="btn btn-default" data-bind="click: $parent.save ">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+				<!-- ko if: Id() != -1 -->
+				<button class="btn btn-default" data-bind="click: cancelEdit ">
+					<span class="glyphicon glyphicon-ban-circle"></span>
+				</button>
+				<!-- /ko-->
+				<button class="btn btn-default" data-bind="click: $parent.delete">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</td>
+		</tr>
+	</script>
+
+	<script language="javascript">
+		var model = @Html.Raw(Json.Encode(Model));
+		var defaultEntity = @Html.Raw(Json.Encode(Technology.GetDefault()));
+
+		var actions = {
+			'update': '@Url.Action("Edit")',
+			'delete': '@Url.Action("Delete")'
+		};
+
+		var viewModel = new $$.ui.editor.EntityListViewModel(actions, model, defaultEntity);
+		ko.applyBindings(viewModel);
+	</script>
+}

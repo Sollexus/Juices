@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicesWebForms", "JuicesWebForms\JuicesWebForms.csproj", "{C77A8B8D-0FBF-4C33-8CF3-FC8D6DCF07BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicesMvc", "JuicesMvc\JuicesMvc.csproj", "{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuicesMvc.Tests", "JuicesMvc.Tests\JuicesMvc.Tests.csproj", "{D97C3128-21B2-4EE8-A1D0-A4DC7D6E39C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{092EEFDB-7879-4DF9-B9D6-E3F862053943}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{DA38D25E-480F-41AD-9831-DBFB4D86072E}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\JuicesMvc-WAWS-dev.json = PublishScripts\Configurations\JuicesMvc-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B63BDB6B-6124-4CCA-9C6B-01175FC99CF2}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C77A8B8D-0FBF-4C33-8CF3-FC8D6DCF07BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77A8B8D-0FBF-4C33-8CF3-FC8D6DCF07BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77A8B8D-0FBF-4C33-8CF3-FC8D6DCF07BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77A8B8D-0FBF-4C33-8CF3-FC8D6DCF07BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97C3128-21B2-4EE8-A1D0-A4DC7D6E39C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97C3128-21B2-4EE8-A1D0-A4DC7D6E39C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97C3128-21B2-4EE8-A1D0-A4DC7D6E39C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97C3128-21B2-4EE8-A1D0-A4DC7D6E39C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA38D25E-480F-41AD-9831-DBFB4D86072E} = {092EEFDB-7879-4DF9-B9D6-E3F862053943}
+	EndGlobalSection
+EndGlobal

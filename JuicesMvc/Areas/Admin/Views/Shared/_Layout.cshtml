@@ -1,0 +1,20 @@
+﻿@using System.Configuration
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+	@Scripts.Render("~/admin/bundles/common")
+	@RenderSection("scripts", false);
+}
+
+@section sidebar {
+	<h2>Редактирование</h2>
+	<ul class="nav nav-pills nav-stacked">
+		<li>@Html.ActionLink("Вещества", "Index", "Chemicals") </li>
+		<li>@Html.ActionLink("Технологии", "Index", "Technologies") </li>
+		<li>@Html.ActionLink("Продукты", "Index", "Products")</li>
+	</ul>	
+}
+
+@RenderBody()
