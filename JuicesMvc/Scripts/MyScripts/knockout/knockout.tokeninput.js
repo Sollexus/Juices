@@ -1,8 +1,17 @@
 ﻿ko.bindingHandlers.ko_tokenInput = {
 	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		this.settings = allBindingsAccessor().settings;
-		var self = this;
-		this.items = valueAccessor();
+		
+		var items = valueAccessor();
+
+		/*if (!(this.items instanceof Array))
+			this.items = this.items();
+
+		if (!(this.items instanceof Array)) {
+			console.log("Can't find an array to process");
+			return;
+		}*/
+
 		element.isUpdating = false;
 
 		$(element).tokenInput(this.settings.url, $.extend(settings, $$.ui.settings.tokenInputDefault, {
@@ -10,7 +19,7 @@
 				if (!element.isUpdating) {
 					element.isUpdating = true;
 					try {
-						self.items.push(item);
+						items.push(item);
 					} finally {
 						element.isUpdating = false;
 					}
@@ -20,7 +29,7 @@
 				if (!element.isUpdating) {
 					element.isUpdating = true;
 					try {
-						self.items.remove(item);
+						items.remove(item);
 					} finally {
 						element.isUpdating = false;
 					}
@@ -28,8 +37,8 @@
 			}
 		}));
 
-		this.items.subscribe(function (data) {
-		});
+		/*this.items.subscribe(function (data) {
+		});*/
 	},
 	update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 		var params = ko.toJS(valueAccessor());
