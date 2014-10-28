@@ -15,6 +15,7 @@
 		self.cancelEdit = function () {
 			self.modelState({});
 			self.mode(editor.ModeEnum.VIEW);
+			this.resetChanges();
 		};
 
 		self.acceptChanges = function () {
@@ -23,7 +24,8 @@
 					var propName = this.dtoProps[i];
 					this[propName].commit();
 				}
-				self.cancelEdit();
+				self.modelState({});
+				self.mode(editor.ModeEnum.VIEW);
 			} else logMissingProps();
 		};
 
@@ -134,17 +136,13 @@
 			obj.dtoProps = [];
 			for (var propName in options.data) {
 				if (propName == 'Id') obj[propName] = ko.observable(options.data[propName]);
-				else {
-					obj[propName] = ko.protectedObservable(options.data[propName]);
-					obj.dtoProps.push(propName);
-				}
-				/*else if (options.data[propName] instanceof Array) {
-					obj[propName] = ko.protectedObservable(options.data[propName]);
+				else if (options.data[propName] instanceof Array) {
+					obj[propName] = ko.protectedObservable(ko.observableArray(options.data[propName]));
 					obj.dtoProps.push(propName);
 				} else {
 					obj[propName] = ko.protectedObservable(options.data[propName]);
 					obj.dtoProps.push(propName);
-				}*/
+				}
 			}
 			return ko.utils.extend(obj, new editor.BaseEntityViewModel());
 		}

@@ -1,16 +1,14 @@
 ﻿ko.protectedObservable = function (initialValue) {
 	//private variables
 
-	var isArr = initialValue instanceof Array;
-
-	var actualValue = isArr ? ko.observableArray(initialValue) : ko.observable(initialValue),
-        tempValue = isArr ? actualValue : initialValue;
+	var actualValue = ko.observable(initialValue);
+	var tempValue = initialValue;
 
 	//computed observable that we will return
-	var result = ko.computed({
+	var result = ko.pureComputed({
 		//always return the actual value
 		read: function () {
-			return isArr ? actualValue() : actualValue;
+			return actualValue();
 		},
 		//stored in a temporary spot until commit
 		write: function (newValue) {

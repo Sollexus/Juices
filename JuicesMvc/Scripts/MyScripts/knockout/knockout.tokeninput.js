@@ -4,13 +4,8 @@
 		
 		var items = valueAccessor();
 
-		/*if (!(this.items instanceof Array))
-			this.items = this.items();
-
-		if (!(this.items instanceof Array)) {
-			console.log("Can't find an array to process");
-			return;
-		}*/
+		if (ko.isComputed(items))
+			items = items();
 
 		element.isUpdating = false;
 
