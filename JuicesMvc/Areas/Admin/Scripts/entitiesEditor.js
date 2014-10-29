@@ -136,6 +136,7 @@
 			obj.dtoProps = [];
 			for (var propName in options.data) {
 				if (propName == 'Id') obj[propName] = ko.observable(options.data[propName]);
+
 				else if (options.data[propName] instanceof Array) {
 					obj[propName] = ko.protectedObservable(ko.observableArray(options.data[propName]));
 					obj.dtoProps.push(propName);

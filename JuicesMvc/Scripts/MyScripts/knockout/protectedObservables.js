@@ -5,10 +5,10 @@
 	var tempValue = initialValue;
 
 	//computed observable that we will return
-	var result = ko.pureComputed({
+	var result = ko.computed({
 		//always return the actual value
 		read: function () {
-			return actualValue();
+			actualValue();
 		},
 		//stored in a temporary spot until commit
 		write: function (newValue) {

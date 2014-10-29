@@ -38,6 +38,7 @@ namespace JuicesMvc {
 			bundles.Add(new ScriptBundle("~/bundles/knockoutExtensions").Include(
 						"~/Scripts/MyScripts/knockout/knockout.tokeninput.js",
 						"~/Scripts/MyScripts/knockout/protectedObservables.js",
+						"~/Scripts/MyScripts/knockout/protectedArrayObservables.js",
 						"~/Scripts/MyScripts/knockout/aspNetValidation.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/chosen").Include(
