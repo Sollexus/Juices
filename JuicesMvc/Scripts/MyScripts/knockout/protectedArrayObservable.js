@@ -1,6 +1,6 @@
-﻿ko.protectedObservable = function (initialValue) {
+﻿ko.protectedArrayObservable = function (initialValue) {
 
-	var actualValue = ko.observableArray(initialValue);
+	var actualValue = initialValue.slice(0);
 	var tempValue = ko.observableArray(initialValue);
 
 	var result = ko.computed({
@@ -8,17 +8,17 @@
 			return tempValue;
 		},
 		write: function (newValue) {
-			tempValue = newValue;
+			tempValue(newValue);
 		}
 	}).extend({ notify: "always" });
 
 
 	result.commit = function () {
-		actualValue = tempValue;
+		actualValue = tempValue();
 	};
 
 	result.reset = function () {
-		tempValue = actualValue();
+		tempValue(actualValue);
 	};
 
 	result.getTempValue = function () {

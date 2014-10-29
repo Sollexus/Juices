@@ -8,7 +8,7 @@
 	var result = ko.computed({
 		//always return the actual value
 		read: function () {
-			actualValue();
+			return actualValue();
 		},
 		//stored in a temporary spot until commit
 		write: function (newValue) {

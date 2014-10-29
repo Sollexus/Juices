@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Juices.DAL;
 using JuicesMvc.Models;
 
 namespace JuicesMvc.Areas.Admin.Controllers {

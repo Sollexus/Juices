@@ -3,8 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
-using JuicesMvc.Controllers;
-using JuicesMvc.Models;
+using Juices.DAL;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ChemicalsController : ProductsControllerBase {

@@ -1,7 +1,7 @@
 using System.Data.Entity.Validation;
 using System.Text;
 using Juices.DAL;
-using JuicesMvc.Models;
+
 
 namespace JuicesMvc.Migrations {
 	using System;

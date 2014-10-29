@@ -1,4 +1,5 @@
-﻿using JuicesMvc.Controllers;
+﻿using Juices.DAL;
+using JuicesMvc.Controllers;
 using JuicesMvc.Models;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
