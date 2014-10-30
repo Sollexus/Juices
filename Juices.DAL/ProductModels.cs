@@ -6,13 +6,9 @@ namespace Juices.DAL {
     public class Product {
         [Key]
         public int Id { get; set;}
-		[Required, DisplayName("Название")]
 		public string Name { get; set; }
-		[DisplayName("Вещества")]
         public virtual ICollection<Content> Contents { get; set; }
-		[DisplayName("Технологии")]
-        public ICollection<Technology> Technologies { get; set; }
-		[Required, DisplayName("Описание")]
+        public virtual ICollection<Technology> Technologies { get; set; }
 		public string Description { get; set; }
 
 	    public static Product GetDefault() {
