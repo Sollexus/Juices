@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Juices.DAL;
-using JuicesMvc.Models;
+using JuicesMvc.Dtos.Products;
 
-namespace JuicesMvc.Areas.Admin.Controllers
-{
-    public class ProductsController : ProductsControllerBase
-    {
+namespace JuicesMvc.Areas.Admin.Controllers {
+	public class ProductsController : ProductsControllerBase {
 		public ActionResult Index() {
 			return View(Context.Products.ToList());
 		}
@@ -23,11 +17,10 @@ namespace JuicesMvc.Areas.Admin.Controllers
 			return product.Id;
 		}
 
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		/*[ValidateAntiForgeryToken]*/
-		public ActionResult Edit(Product product) {
+		public ActionResult Edit(EditProductDto dto) {
+
 			if (!ModelState.IsValid) return JsonAffirmation(product);
 
 			if (product.Id == -1)
@@ -50,5 +43,5 @@ namespace JuicesMvc.Areas.Admin.Controllers
 			Context.SaveChanges();
 			return Json(true, JsonRequestBehavior.AllowGet);
 		}
-    }
+	}
 }

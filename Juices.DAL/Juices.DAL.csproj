@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="JuicyContext.cs" />
     <Compile Include="Migrations\201410212123306_lol.cs" />
     <Compile Include="Migrations\201410212123306_lol.Designer.cs">

@@ -7,8 +7,8 @@ namespace Juices.DAL {
         [Key]
         public int Id { get; set;}
 		public string Name { get; set; }
-        public virtual ICollection<Content> Contents { get; set; }
-        public virtual ICollection<Technology> Technologies { get; set; }
+        public ICollection<Content> Contents { get; set; }
+        public ICollection<Technology> Technologies { get; set; }
 		public string Description { get; set; }
 
 	    public static Product GetDefault() {
