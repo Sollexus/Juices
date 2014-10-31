@@ -1,6 +1,7 @@
 ﻿ko.bindingHandlers.ko_tokenInput = {
 	init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-		this.settings = allBindingsAccessor().settings;
+		var self = this;
+		self.settings = allBindingsAccessor().settings;
 		
 		var items = valueAccessor();
 
@@ -14,7 +15,7 @@
 				if (!element.isUpdating) {
 					element.isUpdating = true;
 					try {
-						items.push(item);
+						items.push(mapItem(item));
 					} finally {
 						element.isUpdating = false;
 					}
@@ -24,13 +25,19 @@
 				if (!element.isUpdating) {
 					element.isUpdating = true;
 					try {
-						items.remove(item);
+						items.remove(mapItem(item));
 					} finally {
 						element.isUpdating = false;
 					}
 				}
 			}
 		}));
+
+		function mapItem(item) {
+			if (self.settings.customMapping)
+				return self.settings.customMapping(item);
+			return item;
+		}
 
 		/*this.items.subscribe(function (data) {
 		});*/

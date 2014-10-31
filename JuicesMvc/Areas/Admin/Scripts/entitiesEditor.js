@@ -133,7 +133,14 @@
 						obj.dtoProps.push(propName);
 					}
 				}
-				return $.extend(obj, new editor.BaseEntityViewModel(entityOptions));
+					
+				var res = $.extend(obj, new editor.BaseEntityViewModel(entityOptions), entityOptions.customProperties || {});
+
+/*				if (entityOptions.customProperties)
+					for (var custProp in entityOptions.customProperties)
+						editor.BaseEntityViewModel.prototype[custProp] = entityOptions.customProperties[custProp];*/
+
+				return res;
 			}
 		};
 

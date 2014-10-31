@@ -1,6 +1,5 @@
 ﻿@using Juices.DAL
-@using JuicesMvc.Models
-@model IEnumerable<Juices.DAL.Product>
+@model IEnumerable<Product>
 
 @{
 	ViewBag.Title = "Продукты";
@@ -12,9 +11,9 @@
 <table class="table">
 	<thead>
 		<tr>
-			<th>@Html.DisplayNameFor(model => model.Name)</th>
-			<th>@Html.DisplayNameFor(model => model.Description)</th>
-			<th>@Html.DisplayNameFor(model => model.Contents)</th>
+			<th>Название</th>
+			<th>Описание</th>
+			<th>Состав</th>
 			<th>Управление</th>
 		</tr>
 	</thead>
@@ -40,8 +39,7 @@
 		<tr>
 			<td data-bind="text: Name"></td>
 			<td data-bind="text: Description"></td>
-			<td data-bind="foreach: Contents">
-				<!-- ko text: Name --> <!-- /ko -->
+			<td data-bind="text: ContentList">
 			</td>
 			<td>
 				<button class="btn btn-default" data-bind="click: edit ">
@@ -65,7 +63,8 @@
 			<td>
 				<input type="text" data-bind="ko_tokenInput: Contents,
 					settings: {
-						url: '@Url.Action("Search", "Chemicals")'
+						url: '@Url.Action("Search", "Chemicals")',
+						customMapping: chemicalToContent
 					}
 				" />
 			</td>
@@ -88,17 +87,29 @@
 	<script language="javascript">
 		var model = @Html.Raw(Json.Encode(Model));
 		var defaultEntity = @Html.Raw(Json.Encode(Product.GetDefault()));
-
+		
 		var actions = {
 			'update': '@Url.Action("Edit")',
 			'delete': '@Url.Action("Delete")'
 		};
+
+		function chemicalToContent(item) {
+			return { 
+				Id: -1,
+				Chemical: item
+			};
+		}
 
 		var options = {
 			customDtoMapping: {
 				'Contents': function(contents) {
 					return contents().map(function(content) { return content.Id; });
 				}
+			},
+			customProperties: {
+				'ContentList': ko.pureComputed(function() {
+					return this.Contents.map(function(item) { return item.Chemical.Name; }).join();		
+				})
 			}
 		};
 
