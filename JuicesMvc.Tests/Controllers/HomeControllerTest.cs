@@ -16,9 +16,6 @@ namespace JuicesMvc.Tests.Controllers {
 		class Item {
 			public int Id { get; set; }
 		}
-
-		
-
 		class A {
 			public string Name { get; set; }
 

@@ -8,7 +8,7 @@ using JuicesMvc.Dtos.Products;
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ProductsController : ProductsControllerBase {
 		public ActionResult Index() {
-			return View(Context.Products.ToList());
+			return View(Context.Products.Include(_ => _.Contents));
 		}
 
 		private int Create(Product product) {
@@ -20,14 +20,13 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 		[HttpPost]
 		/*[ValidateAntiForgeryToken]*/
 		public ActionResult Edit(EditProductDto dto) {
+			if (!ModelState.IsValid) return JsonAffirmation(dto);
 
-			if (!ModelState.IsValid) return JsonAffirmation(product);
+			/*if (product.Id == -1)
+				return Json(Create(product));*/
 
-			if (product.Id == -1)
-				return Json(Create(product));
-
-			Context.Entry(product).State = EntityState.Modified;
-			Context.SaveChanges();
+			//Context.Entry(product).State = EntityState.Modified;
+			//Context.SaveChanges();
 			return JsonAffirmation();
 		}
 

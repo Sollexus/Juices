@@ -41,7 +41,7 @@
 			<td data-bind="text: Name"></td>
 			<td data-bind="text: Description"></td>
 			<td data-bind="foreach: Contents">
-				<!-- ko text: Chemical.Name --> <!-- /ko -->
+				<!-- ko text: Name --> <!-- /ko -->
 			</td>
 			<td>
 				<button class="btn btn-default" data-bind="click: edit ">
@@ -94,7 +94,15 @@
 			'delete': '@Url.Action("Delete")'
 		};
 
-		var viewModel = new $$.ui.editor.EntityListViewModel(actions, model, defaultEntity);
+		var options = {
+			customDtoMapping: {
+				'Contents': function(contents) {
+					return contents().map(function(content) { return content.Id; });
+				}
+			}
+		};
+
+		var viewModel = new $$.ui.editor.EntityListViewModel(actions, model, defaultEntity, options);
 		ko.applyBindings(viewModel);
 	</script>
 }

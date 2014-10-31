@@ -6,8 +6,14 @@
 		EDIT: 1
 	};
 
-	editor.BaseEntityViewModel = function () {
+	editor.BaseEntityViewModel = function (options) {
 		var self = this;
+
+		var DEFAULT_SETTINGS = {
+			customDtoMapping: null
+		};
+
+		options = $.extend(DEFAULT_SETTINGS, options || {});
 
 		self.mode = ko.observable(editor.ModeEnum.VIEW);
 
@@ -81,6 +87,14 @@
 
 				for (var i = 0; i < this.dtoProps.length; i++) {
 					var propName = this.dtoProps[i];
+
+					if (options.customDtoMapping) {
+						if (propName in options.customDtoMapping) {
+							dto[propName] = options.customDtoMapping[propName](this[propName].getTempValue());
+							continue;
+						}
+					}
+
 					dto[propName] = this[propName].getTempValue();
 				}
 
@@ -102,8 +116,26 @@
 		});
 	};
 
-	editor.EntityListViewModel = function (actions, entities, defaultEntity, options) {
+	editor.EntityListViewModel = function (actions, entities, defaultEntity, entityOptions) {
 		var self = this;
+
+		editor.basicMapping = {
+			create: function (options) {
+				var obj = {};
+				obj.dtoProps = [];
+				for (var propName in options.data) {
+					if (propName == 'Id') obj[propName] = ko.observable(options.data[propName]);
+					else if (options.data[propName] instanceof Array) {
+						obj[propName] = ko.protectedArrayObservable(options.data[propName]);
+						obj.dtoProps.push(propName);
+					} else {
+						obj[propName] = ko.protectedObservable(options.data[propName]);
+						obj.dtoProps.push(propName);
+					}
+				}
+				return $.extend(obj, new editor.BaseEntityViewModel(entityOptions));
+			}
+		};
 
 		self.entities = ko.mapping.fromJS(entities, editor.basicMapping);
 
@@ -128,24 +160,6 @@
 			entityViewModel.edit();
 			self.entities.push(entityViewModel);
 		};
-	};
-
-	editor.basicMapping = {
-		create: function (options) {
-			var obj = {};
-			obj.dtoProps = [];
-			for (var propName in options.data) {
-				if (propName == 'Id') obj[propName] = ko.observable(options.data[propName]);
-				else if (options.data[propName] instanceof Array) {
-					obj[propName] = ko.protectedArrayObservable(options.data[propName]);
-					obj.dtoProps.push(propName);
-				} else {
-					obj[propName] = ko.protectedObservable(options.data[propName]);
-					obj.dtoProps.push(propName);
-				}
-			}
-			return ko.utils.extend(obj, new editor.BaseEntityViewModel());
-		}
 	};
 
 })($$.ui.editor = $$.ui.editor || {}, jQuery);
