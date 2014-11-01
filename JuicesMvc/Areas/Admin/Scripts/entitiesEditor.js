@@ -118,6 +118,7 @@
 
 	editor.EntityListViewModel = function (actions, entities, defaultEntity, entityOptions) {
 		var self = this;
+		entityOptions = entityOptions || {};
 
 		editor.basicMapping = {
 			create: function (options) {
@@ -133,12 +134,11 @@
 						obj.dtoProps.push(propName);
 					}
 				}
-					
-				var res = $.extend(obj, new editor.BaseEntityViewModel(entityOptions), entityOptions.customProperties || {});
+				
+				var res = $.extend(obj, new editor.BaseEntityViewModel(entityOptions));
 
-/*				if (entityOptions.customProperties)
-					for (var custProp in entityOptions.customProperties)
-						editor.BaseEntityViewModel.prototype[custProp] = entityOptions.customProperties[custProp];*/
+				if (entityOptions.addProperties)
+					entityOptions.addProperties(res);
 
 				return res;
 			}

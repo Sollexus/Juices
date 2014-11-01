@@ -64,7 +64,7 @@
 				<input type="text" data-bind="ko_tokenInput: Contents,
 					settings: {
 						url: '@Url.Action("Search", "Chemicals")',
-						customMapping: chemicalToContent
+						customMapping: contentTokenInputMapping
 					}
 				" />
 			</td>
@@ -87,29 +87,42 @@
 	<script language="javascript">
 		var model = @Html.Raw(Json.Encode(Model));
 		var defaultEntity = @Html.Raw(Json.Encode(Product.GetDefault()));
-		
+
 		var actions = {
 			'update': '@Url.Action("Edit")',
 			'delete': '@Url.Action("Delete")'
 		};
 
-		function chemicalToContent(item) {
-			return { 
-				Id: -1,
-				Chemical: item
-			};
-		}
+		var contentTokenInputMapping = {
+			to: function(item) {
+				return {
+					Id: -1,
+					Chemical: item
+				};
+			},
+			from: function(item) {
+				return item.Chemical;
+			}
+		};
 
 		var options = {
 			customDtoMapping: {
 				'Contents': function(contents) {
-					return contents().map(function(content) { return content.Id; });
+					return contents().map(function(content) {
+						return { Id: content.Id, ChemicalId: content.Chemical.Id };
+					});
 				}
 			},
-			customProperties: {
-				'ContentList': ko.pureComputed(function() {
-					return this.Contents.map(function(item) { return item.Chemical.Name; }).join();		
-				})
+			addProperties: function(item) {
+				item.ContentList = ko.computed(function() {
+					if (this.Contents)
+						return ko.toJS(this.Contents).map(function(item) {
+							if (item.Chemical)
+								return item.Chemical.Name;
+							return "";
+						}).join();
+					return "";
+				}, item);
 			}
 		};
 

@@ -11,8 +11,15 @@ namespace JuicesMvc.Dtos.Products
         public int Id { get; set; }
 		[Required(ErrorMessage = "Нужно задать название")]
         public string Name { get; set; }
-        public IEnumerable<int> Contents { get; set; }
+        public IEnumerable<ContentDto> Contents { get; set; }
 		[Required(ErrorMessage = "Нужно задать описание")]
         public string Description { get; set; }
     }
+
+	public class ContentDto {
+		[Required]
+		public int Id { get; set; }
+		[Required]
+		public int ChemicalId { get; set; }
+	}
 }
