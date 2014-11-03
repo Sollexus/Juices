@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201410251338183_lolzies.Designer.cs">
       <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411021526205_lol1.cs" />
+    <Compile Include="Migrations\201411021526205_lol1.Designer.cs">
+      <DependentUpon>201411021526205_lol1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410251338183_lolzies.resx">
       <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411021526205_lol1.resx">
+      <DependentUpon>201411021526205_lol1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

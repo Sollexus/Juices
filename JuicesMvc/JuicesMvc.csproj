@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\JsonNetFormatter.cs" />
     <Compile Include="Helpers\ViewModelConstants.cs" />
     <Compile Include="Migrations\201410212123306_lol.cs" />
     <Compile Include="Migrations\201410212123306_lol.Designer.cs">

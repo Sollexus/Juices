@@ -21,7 +21,8 @@ namespace Juices.DAL
 
 		public DbSet<Product> Products { get; set; }
 
-	    protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+	    protected override void OnModelCreating(DbModelBuilder _) {
+			//_.Entity<Content>().HasRequired()
 		    //modelBuilder.Entity<Product>().HasRequired(p => p.Contents)
 	    }
     }

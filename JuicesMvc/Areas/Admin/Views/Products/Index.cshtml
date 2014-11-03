@@ -1,4 +1,5 @@
 ﻿@using Juices.DAL
+@using Newtonsoft.Json
 @model IEnumerable<Product>
 
 @{
@@ -85,8 +86,8 @@
 	</script>
 
 	<script language="javascript">
-		var model = @Html.Raw(Json.Encode(Model));
-		var defaultEntity = @Html.Raw(Json.Encode(Product.GetDefault()));
+		var model = @Html.Raw(@JsonConvert.SerializeObject(Model));
+		var defaultEntity = @Html.Raw(JsonConvert.SerializeObject(Product.GetDefault()));
 
 		var actions = {
 			'update': '@Url.Action("Edit")',
