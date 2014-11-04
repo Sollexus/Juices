@@ -1,26 +1,42 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Juices.DAL;
+using AutoMapper;
+using Juices.DAL.Entities.Product;
 using JuicesMvc.Dtos.Products;
+using JuicesMvc.Models.Products;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ProductsController : ProductsControllerBase {
+		#region Actions
+
 		public ActionResult Index() {
-			return View(Context.Products.Include(_ => _.Contents));
+			IEnumerable<ProductViewModel> res =
+				Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(Context.Products.Include(_ => _.Contents));
+			return View(res);
 		}
 
-		private int Create(Product product) {
-			Context.Products.Add(product);
+		public ActionResult Delete(int? id) {
+			if (id == null) {
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Product product = Context.Products.Find(id);
+			if (product == null) {
+				return HttpNotFound();
+			}
+			Context.Products.Remove(product);
 			Context.SaveChanges();
-			return product.Id;
+			return Json(true, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
 		/*[ValidateAntiForgeryToken]*/
 		public ActionResult Edit(EditProductDto dto) {
 			if (!ModelState.IsValid) return JsonAffirmation(dto);
+
+			EditProduct(dto);
 
 			/*if (product.Id == -1)
 				return Json(Create(product));*/
@@ -30,17 +46,25 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 			return JsonAffirmation();
 		}
 
-		public ActionResult Delete(int? id) {
-			if (id == null) {
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-			var product = Context.Products.Find(id);
-			if (product == null) {
-				return HttpNotFound();
-			}
-			Context.Products.Remove(product);
+		#endregion
+
+		private int Create(Product product) {
+			Context.Products.Add(product);
 			Context.SaveChanges();
-			return Json(true, JsonRequestBehavior.AllowGet);
+			return product.Id;
+		}
+
+		private void EditProduct(EditProductDto dto) {
+			if (dto.Id != -1)
+			{
+				IQueryable<Content> conts = Context.Contents.Where(_ => _.Product.Id == dto.Id);
+				foreach (var content in conts)
+				{
+
+				}
+				conts.Where(_ => dto.Contents.All(c => c.Id != _.Id));
+			}
+
 		}
 	}
 }

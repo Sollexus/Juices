@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Juices.DAL;
+using Juices.DAL.Entities.Product;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ChemicalsController : ProductsControllerBase {

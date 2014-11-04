@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Juices.DAL;
+using Juices.DAL.Entities.Product;
 using JuicesMvc.Models;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
