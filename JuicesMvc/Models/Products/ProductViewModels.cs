@@ -9,8 +9,6 @@ namespace JuicesMvc.Models.Products {
 	{
 		public Chemical Chemical { get; set; }
 		
-		//TODO: there is a way to deal with circular referenced in JSON.NET
-		
 		public int Order { get; set; }
 
 		[DisplayName("Не указан")]
@@ -32,8 +30,8 @@ namespace JuicesMvc.Models.Products {
 		[Required, DisplayName("Описание")]
 		public string Description { get; set; }
 
-		public static Product GetDefault() {
-			return new Product { Id = 1, Name = "Название", Description = "Описание" };
+		public static ProductViewModel GetDefault() {
+			return new ProductViewModel { Id = -1, Name = "Название", Description = "Описание", Contents = new List<ContentViewModel>() };
 		}
 	}
 

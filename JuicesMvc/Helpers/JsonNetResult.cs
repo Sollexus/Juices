@@ -28,7 +28,7 @@ namespace JuicesMvc.Helpers {
 			if (context == null)
 				throw new ArgumentNullException("context");
 
-			HttpResponseBase response = context.HttpContext.Response;
+			var response = context.HttpContext.Response;
 
 			response.ContentType = !string.IsNullOrEmpty(ContentType)
 			  ? ContentType
@@ -37,14 +37,14 @@ namespace JuicesMvc.Helpers {
 			if (ContentEncoding != null)
 				response.ContentEncoding = ContentEncoding;
 
-			if (Data != null) {
-				JsonTextWriter writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
+		    if (Data == null) return;
 
-				JsonSerializer serializer = JsonSerializer.Create(SerializerSettings);
-				serializer.Serialize(writer, Data);
+		    var writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
 
-				writer.Flush();
-			}
+		    var serializer = JsonSerializer.Create(SerializerSettings);
+		    serializer.Serialize(writer, Data);
+
+		    writer.Flush();
 		}
 	}
 }

@@ -46,38 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Product\Chemical.cs" />
+    <Compile Include="Entities\Product\Content.cs" />
+    <Compile Include="Entities\Product\Product.cs" />
+    <Compile Include="Entities\Product\Technology.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="JuicyContext.cs" />
-    <Compile Include="Migrations\201410212123306_lol.cs" />
-    <Compile Include="Migrations\201410212123306_lol.Designer.cs">
-      <DependentUpon>201410212123306_lol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410251338183_lolzies.cs" />
-    <Compile Include="Migrations\201410251338183_lolzies.Designer.cs">
-      <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201411021526205_lol1.cs" />
-    <Compile Include="Migrations\201411021526205_lol1.Designer.cs">
-      <DependentUpon>201411021526205_lol1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410212123306_lol.resx">
-      <DependentUpon>201410212123306_lol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410251338183_lolzies.resx">
-      <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411021526205_lol1.resx">
-      <DependentUpon>201411021526205_lol1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

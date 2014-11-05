@@ -104,10 +104,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -195,15 +191,6 @@
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Helpers\ViewModelConstants.cs" />
-    <Compile Include="Migrations\201410212123306_lol.cs" />
-    <Compile Include="Migrations\201410212123306_lol.Designer.cs">
-      <DependentUpon>201410212123306_lol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410251338183_lolzies.cs" />
-    <Compile Include="Migrations\201410251338183_lolzies.Designer.cs">
-      <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -321,14 +308,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410212123306_lol.resx">
-      <DependentUpon>201410212123306_lol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410251338183_lolzies.resx">
-      <DependentUpon>201410251338183_lolzies.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Juices.DAL\Juices.DAL.csproj">

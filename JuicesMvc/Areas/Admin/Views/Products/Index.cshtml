@@ -1,6 +1,8 @@
 ﻿@using Juices.DAL
-@using Newtonsoft.Json
-@model IEnumerable<Product>
+@using JuicesMvc.Helpers
+@using JuicesMvc.Models.Products
+
+@model IEnumerable<ProductViewModel>
 
 @{
 	ViewBag.Title = "Продукты";
@@ -86,8 +88,8 @@
 	</script>
 
 	<script language="javascript">
-		var model = @Html.Raw(@JsonConvert.SerializeObject(Model));
-		var defaultEntity = @Html.Raw(JsonConvert.SerializeObject(Product.GetDefault()));
+		var model = @Html.Raw(@Model.ToJson());
+		var defaultEntity = @Html.Raw(ProductViewModel.GetDefault().ToJson());
 
 		var actions = {
 			'update': '@Url.Action("Edit")',

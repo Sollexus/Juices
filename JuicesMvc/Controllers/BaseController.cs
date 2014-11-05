@@ -32,12 +32,18 @@ namespace JuicesMvc.Controllers {
 				return Json(new Affirmation(false, customError: customError));
 
 			return Json(!ModelState.IsValid
-				? new Affirmation(false, JsonConvert.SerializeObject(ViewData.ModelState), customError)
+				? new Affirmation(false, ViewData.ModelState.ToJson(), customError)
 				: new Affirmation(true));
 		}
 
 		protected JsonResult JsonAffirmation() {
 			return Json(new Affirmation(true));
+		}
+
+		protected JsonResult JsonAffirmation(bool isSuccess) {
+			return isSuccess ? 
+				Json(new Affirmation(true)) :
+				Json(new Affirmation(false, ViewData.ModelState.ToJson()));
 		}
 
 		protected object JsonModelErrors(object model) {

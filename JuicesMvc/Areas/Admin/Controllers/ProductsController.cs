@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,7 @@ using AutoMapper;
 using Juices.DAL.Entities.Product;
 using JuicesMvc.Dtos.Products;
 using JuicesMvc.Models.Products;
+using Microsoft.Owin.Logging;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ProductsController : ProductsControllerBase {
@@ -35,36 +37,40 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 		/*[ValidateAntiForgeryToken]*/
 		public ActionResult Edit(EditProductDto dto) {
 			if (!ModelState.IsValid) return JsonAffirmation(dto);
+			
+			var res = EditProduct(dto);
 
-			EditProduct(dto);
-
-			/*if (product.Id == -1)
-				return Json(Create(product));*/
-
-			//Context.Entry(product).State = EntityState.Modified;
-			//Context.SaveChanges();
-			return JsonAffirmation();
+			return res == -1 ? JsonAffirmation(false) : Json(res);
 		}
 
 		#endregion
+	
+		private int EditProduct(EditProductDto dto) {
+			var prod = Mapper.Map<EditProductDto, Product>(dto);
 
-		private int Create(Product product) {
-			Context.Products.Add(product);
-			Context.SaveChanges();
-			return product.Id;
-		}
+			using (var ta = Context.Database.BeginTransaction()) {
+				try {
+					if (dto.Id == -1) {
+						Context.Products.Add(prod);
+						Context.SaveChanges();
+					}
+					
+					var newConts = Context.Contents
+						.Where(_ => _.Product.Id == dto.Id)
+						.Where(_ => dto.Contents.All(c => c.Id != _.Id))
+						.Select((_, i) => new Content {ChemicalId = _.ChemicalId, ProductId = prod.Id, Order = i});
 
-		private void EditProduct(EditProductDto dto) {
-			if (dto.Id != -1)
-			{
-				IQueryable<Content> conts = Context.Contents.Where(_ => _.Product.Id == dto.Id);
-				foreach (var content in conts)
-				{
-
+					Context.Contents.AddRange(newConts);
+					
+					ta.Commit();
+					return prod.Id;
+				} catch (Exception ex) {
+					ModelState.AddModelError("EditProduct", ex);
+					ta.Rollback();
 				}
-				conts.Where(_ => dto.Contents.All(c => c.Id != _.Id));
 			}
 
+			return -1;
 		}
 	}
 }
