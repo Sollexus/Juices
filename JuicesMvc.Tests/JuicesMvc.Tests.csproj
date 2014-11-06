@@ -99,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Juices.DAL\Juices.DAL.csproj">
+      <Project>{19DF613D-6283-429F-9CB2-ABD6C0C34945}</Project>
+      <Name>Juices.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JuicesMvc\JuicesMvc.csproj">
       <Project>{1D07F37F-C732-4CD8-BC23-A6D93893E7F8}</Project>
       <Name>JuicesMvc</Name>

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
 using AutoMapper;
-using Juices.DAL;
 using Juices.DAL.Entities.Product;
 using JuicesMvc.Dtos.Products;
 using JuicesMvc.Models.Products;
 
 namespace JuicesMvc.App_Start {
-
-
 	public static class MapperConfig {
 		public static IMappingExpression<TSource, TDestination> Ignore<TSource, TDestination>(
 				this IMappingExpression<TSource, TDestination> map,
@@ -18,6 +15,8 @@ namespace JuicesMvc.App_Start {
 		}
 
 		public static void Configure() {
+			Mapper.AllowNullDestinationValues = false;
+			
 			Mapper.CreateMap<Product, ProductViewModel>();
 			Mapper
 				.CreateMap<EditProductDto, Product>()

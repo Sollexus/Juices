@@ -6,6 +6,10 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using AutoMapper;
+using Juices.DAL.Entities.Product;
+using JuicesMvc.App_Start;
+using JuicesMvc.Dtos.Products;
+using JuicesMvc.Models.Products;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JuicesMvc;
 using JuicesMvc.Controllers;
@@ -24,6 +28,24 @@ namespace JuicesMvc.Tests.Controllers {
 
 		class B {
 			public string Name { get; set; }
+		}
+
+		[TestMethod]
+		public void AutoMapperExps() {
+			Mapper.Configuration.AllowNullDestinationValues = false;
+
+			Mapper
+				.CreateMap<EditProductDto, Product>()
+				.Ignore(p => p.Contents)
+				.Ignore(p => p.Technologies);
+
+			Mapper.AssertConfigurationIsValid();
+
+			var dto = new EditProductDto {Name = "Something", Description = "Smth"};
+
+			var prod = Mapper.Map<EditProductDto, Product>(dto);
+
+			Assert.AreNotEqual(null, prod.Contents);
 		}
 
 		[TestMethod]
