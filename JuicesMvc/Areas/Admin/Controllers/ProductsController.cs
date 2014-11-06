@@ -65,7 +65,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 					ta.Commit();
 					return prod.Id;
 				} catch (Exception ex) {
-					ModelState.AddModelError("EditProduct", ex);
+					ModelState.AddModelError("CustomError", ex);
 					ta.Rollback();
 				}
 			}

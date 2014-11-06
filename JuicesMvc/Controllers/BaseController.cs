@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Web.Mvc;
 using JuicesMvc.Helpers;
@@ -32,7 +31,7 @@ namespace JuicesMvc.Controllers {
 				return Json(new Affirmation(false, customError: customError));
 
 			return Json(!ModelState.IsValid
-				? new Affirmation(false, ViewData.ModelState.ToJson(), customError)
+				? new Affirmation(false, GetErrors().ToJson(), customError)
 				: new Affirmation(true));
 		}
 
@@ -41,12 +40,18 @@ namespace JuicesMvc.Controllers {
 		}
 
 		protected JsonResult JsonAffirmation(bool isSuccess) {
-			return isSuccess ? 
+			return isSuccess ?
 				Json(new Affirmation(true)) :
-				Json(new Affirmation(false, ViewData.ModelState.ToJson()));
+				Json(new Affirmation(false, GetErrors().ToJson()));
 		}
 
-		protected object JsonModelErrors(object model) {
+		private object GetErrors() {
+			return ModelState.ToDictionary(
+				m => m.Key,
+				m => new { Errors = m.Value.Errors.Select(err => err.ErrorMessage).ToList() });
+		}
+
+		/*protected object JsonModelErrors(object model) {
 			var modelType = model.GetType();
 
 			return ModelState.Select(kvp => new {
@@ -56,9 +61,9 @@ namespace JuicesMvc.Controllers {
 		}
 
 		private static string GetJsonProperty(Type modelType, string property) {
-			PropertyInfo propertyInfo = modelType.GetProperty(property);
-			object[] attrs = propertyInfo.GetCustomAttributes(typeof (JsonPropertyAttribute), false);
+			var propertyInfo = modelType.GetProperty(property);
+			var attrs = propertyInfo.GetCustomAttributes(typeof (JsonPropertyAttribute), false);
 			return attrs.Length == 1 ? ((JsonPropertyAttribute) attrs[0]).PropertyName : property;
-		}
+		}*/
 	}
 }
