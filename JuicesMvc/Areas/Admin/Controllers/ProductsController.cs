@@ -57,7 +57,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 					
 					var newConts = Context.Contents
 						.Where(_ => _.Product.Id == dto.Id)
-						.Where(_ => dto.Contents.All(c => c.Id != _.Id))
+						.Where(_ => dto.Contents.All(c => c.Id != _.Id)).ToList()
 						.Select((_, i) => new Content {ChemicalId = _.ChemicalId, ProductId = prod.Id, Order = i});
 
 					Context.Contents.AddRange(newConts);
@@ -65,12 +65,21 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 					ta.Commit();
 					return prod.Id;
 				} catch (Exception ex) {
-					ModelState.AddModelError("CustomError", ex);
+					ModelState.AddModelError("CustomError", GetErrorMessage(ex));
 					ta.Rollback();
 				}
 			}
 
 			return -1;
+		}
+
+		private string GetErrorMessage(Exception ex) {
+			var res = ex.Message;
+			
+			if (ex.InnerException != null)
+				res += ex.InnerException.Message;
+
+			return res + ex.StackTrace;
 		}
 	}
 }

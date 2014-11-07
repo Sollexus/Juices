@@ -6,10 +6,8 @@ namespace Juices.DAL.Entities.Product
 	public class Product : Entity {
 		public string Name { get; set; }
 
-		[Required]
 		public ICollection<Content> Contents { get; set; }
 
-		[Required]
 		public ICollection<Technology> Technologies { get; set; }
 
 		public string Description { get; set; }
