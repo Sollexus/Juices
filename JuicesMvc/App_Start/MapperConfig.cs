@@ -18,10 +18,14 @@ namespace JuicesMvc.App_Start {
 			Mapper.AllowNullDestinationValues = false;
 			
 			Mapper.CreateMap<Product, ProductViewModel>();
+
+			Mapper.CreateMap<ContentDto, Content>();
 			Mapper
 				.CreateMap<EditProductDto, Product>()
-				.Ignore(p => p.Contents)
+				//.Ignore(p => p.Contents)
 				.Ignore(p => p.Technologies);
+
+			
 
 			Mapper.CreateMap<Content, ContentViewModel>();
 		}

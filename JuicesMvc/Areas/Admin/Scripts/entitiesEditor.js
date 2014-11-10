@@ -56,7 +56,8 @@
 
 		self.update = function (updateAction) {
 			var entity = this;
-			$.post(updateAction, entity.getDto(), function (resp) {
+
+			$$.post(updateAction, entity.getDto()).done(function(resp) {
 				if ($.isNumeric(resp)) {
 					entity.Id(resp);
 					entity.acceptChanges();
@@ -70,7 +71,23 @@
 					} else console.log(resp.CustomError);
 				} else console.log(resp);
 				if (!isNewEntity(entity)) entity.resetChanges();
-			});
+			}).run();
+
+			/*$.post(updateAction, entity.getDto(), function (resp) {
+				if ($.isNumeric(resp)) {
+					entity.Id(resp);
+					entity.acceptChanges();
+					return;
+				} else if (resp.Success !== undefined) {
+					if (resp.Success === true) {
+						entity.acceptChanges();
+						return;
+					} else if (resp.ModelErrors !== undefined) {
+						self.modelState(JSON.parse(resp.ModelErrors));
+					} else console.log(resp.CustomError);
+				} else console.log(resp);
+				if (!isNewEntity(entity)) entity.resetChanges();
+			});*/
 		};
 
 		self.delete = function (deleteAction, deleted) {

@@ -48,7 +48,9 @@ namespace JuicesMvc {
 
 
 			bundles.Add(new ScriptBundle("~/bundles/myScripts").Include(
-						"~/Scripts/MyScripts/common.js"
+						"~/Scripts/MyScripts/common.js",
+						"~/Scripts/MyScripts/ajax.js",
+						"~/Scripts/MyScripts/error.js"
 			));
 
 			BundleTable.EnableOptimizations = false;
