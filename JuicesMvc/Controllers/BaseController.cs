@@ -19,10 +19,12 @@ namespace JuicesMvc.Controllers {
 	}
 
 	public class BaseController : Controller {
-		protected override JsonResult Json(object data, string contentType, Encoding contentEncoding) {
+		protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior) {
 			return new JsonNetResult {
 				Data = data,
-				ContentEncoding = contentEncoding
+				ContentEncoding = contentEncoding,
+				ContentType = contentType,
+				JsonRequestBehavior = behavior
 			};
 		}
 

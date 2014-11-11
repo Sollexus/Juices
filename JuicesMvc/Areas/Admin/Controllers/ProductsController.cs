@@ -5,11 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
-using Juices.DAL;
 using Juices.DAL.Entities.Product;
 using JuicesMvc.Dtos.Products;
 using JuicesMvc.Models.Products;
-using Microsoft.Owin.Logging;
 
 namespace JuicesMvc.Areas.Admin.Controllers {
 	public class ProductsController : ProductsControllerBase {
@@ -48,7 +46,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 		}
 
 		#endregion
-	
+
 		private int EditProduct(Product prod) {
 			using (var ta = Context.Database.BeginTransaction()) {
 				try {
@@ -61,7 +59,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 					var newConts = prod.Contents.Where(_ => _.Id == -1);
 					var oldConts = Context.Contents.Where(_ => _.Product.Id == prod.Id);
-					
+
 					Context.Contents.AddRange(newConts);
 					Context.SaveChanges();
 
@@ -76,7 +74,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 		private string GetErrorMessage(Exception ex) {
 			var res = ex.Message;
-			
+
 			if (ex.InnerException != null)
 				res += ex.InnerException.Message;
 
