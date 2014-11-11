@@ -1,28 +1,66 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+	white-space: normal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+	max-width: 280px;
 }
 
 .table tbody > tr > td {
 	vertical-align: middle;
 }
+
+#error {
+	position: absolute;
+	z-index: 1001;
+	width: 800px;
+	height: 360px;
+	left: 50%;
+	top: 50%;
+	background: #fff url('../Content/Images/error2.png') no-repeat 10px 20px;
+	font-family: Calibri;
+	margin: -250px 0 0 -400px;
+	-webkit-box-shadow: 5px 5px 5px #666;
+	box-shadow: 5px 5px 5px #666;
+	border-radius: 5px;
+	border: 1px solid #aaa;
+}
+
+	#error .error-content {
+		padding: 30px 20px 10px 85px;
+	}
+
+	#error .error-title {
+		height: 34px;
+		font-size: 180%;
+		overflow: hidden;
+	}
+
+	#error .error-stack {
+		overflow: auto;
+		height: 255px;
+		margin: 0;
+		padding: 0;
+	}
+
+	#error .error-footer {
+		text-align: center;
+		padding-top: 10px;
+	}

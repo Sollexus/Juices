@@ -36,10 +36,10 @@ namespace JuicesMvc {
 						"~/Scripts/jquery.tokeninput.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/knockoutExtensions").Include(
-						"~/Scripts/MyScripts/knockout/knockout.tokeninput.js",
-						"~/Scripts/MyScripts/knockout/protectedObservable.js",
-						"~/Scripts/MyScripts/knockout/protectedArrayObservable.js",
-						"~/Scripts/MyScripts/knockout/aspNetValidation.js"));
+						"~/Scripts/JuicyScripts/knockout/knockout.tokeninput.js",
+						"~/Scripts/JuicyScripts/knockout/protectedObservable.js",
+						"~/Scripts/JuicyScripts/knockout/protectedArrayObservable.js",
+						"~/Scripts/JuicyScripts/knockout/aspNetValidation.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/chosen").Include(
 						"~/Scripts/cb-ko-binding-chosen.js",
@@ -47,10 +47,12 @@ namespace JuicesMvc {
 			));
 
 
-			bundles.Add(new ScriptBundle("~/bundles/myScripts").Include(
-						"~/Scripts/MyScripts/common.js",
-						"~/Scripts/MyScripts/ajax.js",
-						"~/Scripts/MyScripts/error.js"
+			bundles.Add(new ScriptBundle("~/bundles/juicyScripts").Include(
+						"~/Scripts/JuicyScripts/common.js",
+						"~/Scripts/JuicyScripts/ajax.js",
+						"~/Scripts/JuicyScripts/error.js",
+						"~/Scripts/JuicyScripts/format.js",
+						"~/Scripts/JuicyScripts/global.js"
 			));
 
 			BundleTable.EnableOptimizations = false;

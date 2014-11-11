@@ -1,8 +1,8 @@
 ﻿//
 (function ($$, $, undefined) {
-	$$.array = {};
-	$$.ui = {};
-	$$.ui.settings = {};
+	$$.array = $$.array || {};
+	$$.ui = $$.ui || {};
+	$$.ui.settings = $$.ui.settings || {};
 
 	$$.ui.confirm = function (message, success, title) {
 		bootbox.dialog({

@@ -67,7 +67,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 					ta.Commit();
 					return prod.Id;
-				} catch (Exception ex) {
+				} catch {
 					ta.Rollback();
 					throw;
 				}

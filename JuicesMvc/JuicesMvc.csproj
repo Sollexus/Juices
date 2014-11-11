@@ -203,6 +203,7 @@
     <Content Include="Content\bootstrap-tokeninput.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\error2.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -237,17 +238,19 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JuicyScripts\global.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\MyScripts\ajax.js" />
-    <Content Include="Scripts\MyScripts\common.js" />
-    <Content Include="Scripts\MyScripts\error.js" />
-    <Content Include="Scripts\MyScripts\knockout\aspNetValidation.js" />
-    <Content Include="Scripts\MyScripts\knockout\protectedArrayObservable.js" />
-    <Content Include="Scripts\MyScripts\knockout\protectedObservable.js" />
+    <Content Include="Scripts\JuicyScripts\ajax.js" />
+    <Content Include="Scripts\JuicyScripts\common.js" />
+    <Content Include="Scripts\JuicyScripts\error.js" />
+    <Content Include="Scripts\JuicyScripts\format.js" />
+    <Content Include="Scripts\JuicyScripts\knockout\aspNetValidation.js" />
+    <Content Include="Scripts\JuicyScripts\knockout\protectedArrayObservable.js" />
+    <Content Include="Scripts\JuicyScripts\knockout\protectedObservable.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -296,7 +299,7 @@
     <Content Include="Scripts\respond.min.js.map">
       <DependentUpon>respond.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\MyScripts\knockout\knockout.tokeninput.js" />
+    <Content Include="Scripts\JuicyScripts\knockout\knockout.tokeninput.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function($) {
 	ko.bindingHandlers.ko_tokenInput = {
 		init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 			var self = this;
@@ -66,5 +66,5 @@
 		}
 	};
 
-})();
+})(jQuery);
 

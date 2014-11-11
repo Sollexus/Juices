@@ -50,7 +50,7 @@
 					if (jqXHR.status != 200 && jqXHR.responseText) {
 						var matches = jqXHR.responseText.match(RegExp('<!--([\\s\\S]+)?-->'));
 						$$.error(jqXHR.status + ' ' + jqXHR.statusText,
-						  $.format('[Url]:{0} {1} \n\n {2}', options.type, options.url, ((matches.length > 0) ? $.trim(matches[1]) : "")));
+						  $$.format('[Url]:{0} {1} \n\n {2}', options.type, options.url, ((matches.length > 0) ? $.trim(matches[1]) : "")));
 					}
 				};
 
