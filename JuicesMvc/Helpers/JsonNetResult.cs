@@ -13,10 +13,6 @@ using Newtonsoft.Json;
 
 namespace JuicesMvc.Helpers {
 	public class JsonNetResult : JsonResult {
-		public Encoding ContentEncoding { get; set; }
-		public string ContentType { get; set; }
-		public object Data { get; set; }
-
 		public JsonSerializerSettings SerializerSettings { get; set; }
 		public Formatting Formatting { get; set; }
 

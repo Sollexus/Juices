@@ -14,8 +14,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 		#region Actions
 
 		public ActionResult Index() {
-			IEnumerable<ProductViewModel> res =
-				Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(Context.Products.Include(_ => _.Contents));
+			var res = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(Context.Products.Include(_ => _.Contents));
 			return View(res);
 		}
 
@@ -34,7 +33,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 		[HttpPost]
 		/*[ValidateAntiForgeryToken]*/
-		public ActionResult Edit(EditProductDto dto) {
+		public JsonResult Edit(EditProductDto dto) {
 			if (!ModelState.IsValid) return JsonAffirmation(dto);
 
 			try {
@@ -53,7 +52,8 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 					var isNewProd = prod.Id == -1;
 
 					if (isNewProd) {
-						Context.Products.Add(prod);
+						Context.Entry(prod).State = EntityState.Added;
+						//Context.Products.Add(prod);
 						Context.SaveChanges();
 					}
 
@@ -65,9 +65,9 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 					ta.Commit();
 					return prod.Id;
-				} catch {
+				} catch (Exception ex) {
 					ta.Rollback();
-					throw;
+					throw new Exception("Edit product exception", ex);
 				}
 			}
 		}
