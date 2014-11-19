@@ -22,7 +22,7 @@ namespace JuicesMvc.Tests.Controllers {
 		public void TestInitialize() {
 			MapperConfig.Configure();
 
-		 	var dataDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "JuicesMvc\\App_Data");
+			var dataDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "JuicesMvc\\App_Data");
 
 			AppDomain.CurrentDomain.SetData("DataDirectory", dataDir);
 
@@ -42,22 +42,28 @@ namespace JuicesMvc.Tests.Controllers {
 						Name = "Name",
 						Description = "Descr",
 						Contents = new List<ContentDto> {
-						new ContentDto {Id = -1, ChemicalId = 34}
-					}
+							new ContentDto {Id = -1, ChemicalId = 34}
+						}
 					};
 
 					var res = ctrl.Edit(dto);
-					Assert.IsInstanceOfType(res.Data, typeof(Affirmation));
+					Assert.IsTrue(res.Data is int || res.Data is Affirmation);
+					if (res.Data is int) {
+						Debug.WriteLine(res.Data);
+						return;
+					}
+
 					var affirmation = res.Data as Affirmation;
 					Debug.WriteLine(JsonConvert.SerializeObject(affirmation, Formatting.Indented, _jsonSettings));
 					Assert.IsTrue(affirmation.Success);
-				}	
+					scope.Complete();
+				}
 			}
 		}
 
 		[TestCleanup]
 		public void TestCleanup() {
-			
+
 		}
 	}
 }

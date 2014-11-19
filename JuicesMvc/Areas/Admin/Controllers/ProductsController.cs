@@ -53,14 +53,9 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 					if (isNewProd) {
 						Context.Entry(prod).State = EntityState.Added;
-						//Context.Products.Add(prod);
-						Context.SaveChanges();
 					}
 
-					var newConts = prod.Contents.Where(_ => _.Id == -1);
-					var oldConts = Context.Contents.Where(_ => _.Product.Id == prod.Id);
-
-					Context.Contents.AddRange(newConts);
+					UpdateContents(prod);
 					Context.SaveChanges();
 
 					ta.Commit();
@@ -70,6 +65,26 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 					throw new Exception("Edit product exception", ex);
 				}
 			}
+		}
+
+		private void UpdateContents(Product prod) {
+			var newConts = prod.Contents.Where(_ => _.Id == -1).ToList();
+			
+			var oldConts = Context.Contents.Where(_ => _.Product.Id == prod.Id).ToList();
+			var addedConts = newConts.Except(oldConts);
+			var deletedConts = oldConts.Except(newConts).ToList();
+			var updatedConts = newConts.Except(deletedConts);
+
+			addedConts.ToList().ForEach(_ => Context.Contents.Add(_));
+
+			foreach (var cont in updatedConts) {
+				Context.Contents.Attach(cont);
+				Context.Entry(cont).State = EntityState.Added;
+			}
+
+			deletedConts.ToList().ForEach(_ => Context.Contents.Remove(_));
+
+			Context.Contents.AddRange(newConts);
 		}
 
 		private string GetErrorMessage(Exception ex) {
