@@ -8,12 +8,12 @@ namespace Juices.DAL.Entities.Product
 	public class Content : Entity {
 		public int ChemicalId { get; set; }
 		
-		[Required, ForeignKey("ChemicalId")]
+		[ForeignKey("ChemicalId")]
 		public virtual Chemical Chemical { get; set; }
 
 		public int ProductId { get; set; }
 		
-		[Required, ForeignKey("ProductId")]
+		[ForeignKey("ProductId")]
 		public virtual Product Product { get; set; }
 
 		public int Order { get; set; }

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace JuicesMvc.Controllers {
 	public class Affirmation {
-		public Affirmation(bool success, object modelErrors = null, object customError = null) {
+		public Affirmation(bool success, object modelErrors = null, Exception customError = null) {
 			Success = success;
 			ModelErrors = modelErrors;
 			CustomError = customError;
@@ -15,7 +15,7 @@ namespace JuicesMvc.Controllers {
 
 		public bool Success { get; set; }
 		public object ModelErrors { get; set; }
-		public object CustomError { get; set; }
+		public Exception CustomError { get; set; }
 	}
 
 	public class BaseController : Controller {
@@ -28,7 +28,7 @@ namespace JuicesMvc.Controllers {
 			};
 		}
 
-		protected JsonResult JsonAffirmation(object model, object customError = null) {
+		protected JsonResult JsonAffirmation(object model, Exception customError = null) {
 			if (model == null)
 				return Json(new Affirmation(false, customError: customError));
 
@@ -52,6 +52,9 @@ namespace JuicesMvc.Controllers {
 				m => m.Key,
 				m => new { Errors = m.Value.Errors.Select(err => err.ErrorMessage).ToList() });
 		}
+
+		
+
 
 		/*protected object JsonModelErrors(object model) {
 			var modelType = model.GetType();

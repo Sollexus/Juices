@@ -22,10 +22,8 @@ namespace JuicesMvc.App_Start {
 			Mapper.CreateMap<ContentDto, Content>();
 			Mapper
 				.CreateMap<EditProductDto, Product>()
-				//.Ignore(p => p.Contents)
+				.Ignore(p => p.Contents)
 				.Ignore(p => p.Technologies);
-
-			
 
 			Mapper.CreateMap<Content, ContentViewModel>();
 		}

@@ -37,7 +37,7 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 			if (!ModelState.IsValid) return JsonAffirmation(dto);
 
 			try {
-				var res = EditProduct(Mapper.Map<EditProductDto, Product>(dto));
+				var res = EditProduct(dto);
 				return dto.Id == -1 ? Json(res) : JsonAffirmation();
 			} catch (Exception ex) {
 				return JsonAffirmation(null, ex);
@@ -46,16 +46,21 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 
 		#endregion
 
-		private int EditProduct(Product prod) {
+		private int EditProduct(EditProductDto dto) {
+			var prod = Mapper.Map<EditProductDto, Product>(dto);
+
 			using (var ta = Context.Database.BeginTransaction()) {
 				try {
 					var isNewProd = prod.Id == -1;
 
 					if (isNewProd) {
 						Context.Entry(prod).State = EntityState.Added;
+						Context.SaveChanges();
+					} else {
+						Context.Entry(prod).State = EntityState.Modified;
 					}
-
-					UpdateContents(prod);
+					
+					UpdateContents(prod, dto.Contents);
 					Context.SaveChanges();
 
 					ta.Commit();
@@ -67,24 +72,19 @@ namespace JuicesMvc.Areas.Admin.Controllers {
 			}
 		}
 
-		private void UpdateContents(Product prod) {
-			var newConts = prod.Contents.Where(_ => _.Id == -1).ToList();
-			
+		private void UpdateContents(Product prod, IEnumerable<ContentDto> contents) {
+			var newConts = Mapper.Map<IEnumerable<ContentDto>, IEnumerable<Content>>(contents);
 			var oldConts = Context.Contents.Where(_ => _.Product.Id == prod.Id).ToList();
-			var addedConts = newConts.Except(oldConts);
+
+			var addedConts = newConts.Except(oldConts).ToList();
 			var deletedConts = oldConts.Except(newConts).ToList();
-			var updatedConts = newConts.Except(deletedConts);
-
-			addedConts.ToList().ForEach(_ => Context.Contents.Add(_));
-
-			foreach (var cont in updatedConts) {
-				Context.Contents.Attach(cont);
-				Context.Entry(cont).State = EntityState.Added;
-			}
-
+			
+			addedConts.ToList().ForEach(_ => {
+				_.ProductId = prod.Id;
+				Context.Entry(_).State = EntityState.Added;
+			});
+			
 			deletedConts.ToList().ForEach(_ => Context.Contents.Remove(_));
-
-			Context.Contents.AddRange(newConts);
 		}
 
 		private string GetErrorMessage(Exception ex) {
